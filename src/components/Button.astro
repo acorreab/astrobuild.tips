@@ -1,0 +1,46 @@
+---
+import type { HTMLAttributes } from "astro/types";
+import { twMerge } from "tailwind-merge";
+
+interface Props extends HTMLAttributes<"a"> {
+	variant: "primary" | "secondary";
+}
+const { variant, ...props } = Astro.props;
+---
+
+<a
+	class={twMerge(
+		"p-4 border-2 border-solid border-black",
+		variant === "primary" && "bg-black text-white rounded-full",
+		variant === "secondary" && "text-black p-8",
+		Astro.props.class
+	)}
+	{...props}
+>
+	<slot />
+</a>
+
+<style>
+	.button {
+		padding: 1rem;
+		border: 2px solid black;
+	}
+
+	.primary {
+		background-color: black;
+		color: white;
+		border-radius: 50%;
+	}
+
+	.secondary {
+		color: black;
+		padding: 2rem;
+	}
+	.red {
+		color: red;
+	}
+
+	.blue {
+		color: blue;
+	}
+</style>
